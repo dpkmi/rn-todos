@@ -1,5 +1,10 @@
 import { View, Text, TextInput, Pressable } from "react-native";
 import { memo } from "react";
+import { Field } from "@/ui/Field";
+import { Input } from "@/ui/Input";
+import { Button } from "@/ui/Button";
+import { Card } from "@/ui/Card";
+import { useTheme } from "@/ui/theme/theme";
 
 type Props = {
   fields: {
@@ -20,102 +25,85 @@ type Props = {
   extraBelowDate?: React.ReactNode;
 };
 
-export const TodoForm = memo((p: Props) => (
-  <View style={{ flex: 1, padding: 16, gap: 12 }}>
-    <Text style={{ fontSize: 22, fontWeight: "600" }}>Todo</Text>
+export const TodoForm = memo((p: Props) => {
+  const t = useTheme();
 
-    <Text style={{ fontWeight: "600" }}>Titel *</Text>
-    <TextInput
-      value={p.fields.title}
-      onChangeText={(v) => p.setField("title", v)}
-      placeholder="Vul een titel in"
+  return (
+    <View
       style={{
-        borderWidth: 1,
-        borderRadius: 8,
-        padding: 10,
-        borderColor: p.errors.title ? "crimson" : "#ccc",
+        flex: 1,
+        padding: t.spacing.lg,
+        gap: t.spacing.md,
+        backgroundColor: t.colors.bg,
       }}
-    />
-    {p.errors.title ? (
-      <Text style={{ color: "crimson" }}>{p.errors.title}</Text>
-    ) : null}
-
-    <Text style={{ fontWeight: "600" }}>Beschrijving</Text>
-    <TextInput
-      value={p.fields.description}
-      onChangeText={(v) => p.setField("description", v)}
-      placeholder="Extra details…"
-      multiline
-      style={{ borderWidth: 1, borderRadius: 8, padding: 10, minHeight: 80 }}
-    />
-
-    <Text style={{ fontWeight: "600" }}>
-      Agenda / Datum (bv. 2025-12-31 09:00)
-    </Text>
-    <TextInput
-      value={p.fields.dueRaw}
-      onChangeText={(v) => p.setField("dueRaw", v)}
-      placeholder="YYYY-MM-DD of YYYY-MM-DD HH:mm"
-      autoCapitalize="none"
-      autoCorrect={false}
-      keyboardType="numbers-and-punctuation"
-      style={{
-        borderWidth: 1,
-        borderRadius: 8,
-        padding: 10,
-        borderColor: p.errors.dueRaw ? "crimson" : "#ccc",
-      }}
-    />
-    {p.errors.dueRaw ? (
-      <Text style={{ color: "crimson" }}>{p.errors.dueRaw}</Text>
-    ) : (
-      p.extraBelowDate ?? null
-    )}
-
-    <Text style={{ fontWeight: "600" }}>Locatie</Text>
-    <TextInput
-      value={p.fields.location}
-      onChangeText={(v) => p.setField("location", v)}
-      placeholder="Adres of plek…"
-      style={{ borderWidth: 1, borderRadius: 8, padding: 10 }}
-    />
-
-    <View style={{ flexDirection: "row", gap: 12, marginTop: 8 }}>
-      <Pressable
-        onPress={p.onSubmit}
-        style={{
-          flex: 1,
-          padding: 12,
-          borderWidth: 1,
-          borderRadius: 8,
-          backgroundColor: "#007AFF",
-        }}
+    >
+      <Text
+        style={{ fontSize: t.type.h1, fontWeight: "600", color: t.colors.text }}
       >
-        <Text
-          style={{ color: "white", fontWeight: "600", textAlign: "center" }}
+        Todo
+      </Text>
+
+      <Card style={{ padding: t.spacing.lg, gap: t.spacing.md }}>
+        <Field label="Title *" error={p.errors.title}>
+          <Input
+            value={p.fields.title}
+            onChangeText={(v) => p.setField("title", v)}
+            placeholder="Vul een titel in"
+          />
+        </Field>
+
+        <Field label="Beschrijving">
+          <Input
+            value={p.fields.description}
+            onChangeText={(v) => p.setField("description", v)}
+            placeholder="Extra details…"
+            multiline
+            style={{ minHeight: 80, textAlignVertical: "top" }}
+          />
+        </Field>
+
+        <Field
+          label="Agenda / Datum (bv. 2025-12-31 09:00)"
+          error={p.errors.dueRaw}
         >
-          Opslaan
-        </Text>
-      </Pressable>
-      <Pressable
-        onPress={p.onCancel}
-        style={{ padding: 12, borderWidth: 1, borderRadius: 8 }}
-      >
-        <Text style={{ fontWeight: "600" }}>Annuleer</Text>
-      </Pressable>
-      {p.showDelete ? (
-        <Pressable
-          onPress={p.onDelete}
+          <Input
+            value={p.fields.dueRaw}
+            onChangeText={(v) => p.setField("dueRaw", v)}
+            placeholder="YYYY-MM-DD of YYYY-MM-DD HH:mm"
+            autoCapitalize="none"
+            autoCorrect={false}
+            keyboardType="numbers-and-punctuation"
+          />
+          {p.errors.dueRaw ? null : p.extraBelowDate ?? null}
+        </Field>
+
+        <Field label="Locatie">
+          <Input
+            value={p.fields.location}
+            onChangeText={(v) => p.setField("location", v)}
+            placeholder="Adres of plek…"
+          />
+        </Field>
+
+        <View
           style={{
-            padding: 12,
-            borderWidth: 1,
-            borderRadius: 8,
-            borderColor: "#E53935",
+            flexDirection: "row",
+            gap: t.spacing.md,
+            marginTop: t.spacing.sm,
           }}
         >
-          <Text style={{ color: "#E53935", fontWeight: "600" }}>Verwijder</Text>
-        </Pressable>
-      ) : null}
+          <Button title="Opslaan" onPress={p.onSubmit} style={{ flex: 1 }} />
+          <Button title="Annuleer" variant="outline" onPress={p.onCancel} />
+          {p.showDelete ? (
+            <Button
+              title="Verwijder"
+              variant="outline"
+              onPress={p.onDelete ?? (() => {})}
+              style={{ borderColor: t.colors.danger }}
+            />
+          ) : null}
+        </View>
+      </Card>
     </View>
-  </View>
-));
+  );
+});

@@ -2,11 +2,16 @@ import { View, Text, FlatList, Pressable } from "react-native";
 import { useMemo } from "react";
 import { useTodos } from "@features/todos/state/useTodos";
 import { useRouter } from "expo-router";
-import { TodoRow } from "@/features/todos/components/todoRow";
+import { FlashList } from "@shopify/flash-list";
+import { useTheme } from "@/ui/theme/theme";
+import { Button } from "@/ui/Button";
+import { Card } from "@/ui/Card";
+import { RollInLeft } from "react-native-reanimated";
 // import { formatDate } from "@/utils/date";
 
 export default function TodosScreen() {
   const router = useRouter();
+  const t = useTheme();
   const items = useTodos((s) => s.items);
 
   const addTodo = useTodos((s) => s.addTodo);
@@ -19,41 +24,76 @@ export default function TodosScreen() {
   );
 
   return (
-    <View style={{ flex: 1, padding: 16, gap: 12 }}>
+    <View style={{ flex: 1, padding: t.spacing.lg, gap: t.spacing.md }}>
       <View
         style={{
           flexDirection: "row",
-          justifyContent: "space-between",
           alignItems: "center",
+          justifyContent: "space-between",
         }}
       >
-        <Text style={{ fontSize: 22, fontWeight: "600" }}>📝 Todos</Text>
-        <Pressable
-          onPress={() => router.push("/todos/new")}
+        <Text
           style={{
-            paddingVertical: 8,
-            paddingHorizontal: 12,
-            borderWidth: 1,
-            borderRadius: 8,
+            fontSize: t.type.h1,
+            fontWeight: "700",
+            color: t.colors.text,
           }}
         >
-          <Text>+ Nieuw</Text>
-        </Pressable>
+          📝 Todos
+        </Text>
+        <Button title="+ Nieuw" onPress={() => router.push("/todos/new")} />
       </View>
 
-      <FlatList
-        data={data}
-        keyExtractor={(t) => t.id}
-        ItemSeparatorComponent={() => <View style={{ height: 10 }} />}
-        renderItem={({ item }) => (
-          <TodoRow
-            item={item}
-            onToggle={toggleTodo}
-            onDelete={removeTodo}
-            onOpen={(id) => router.push(`/todos/${id}`)}
-          ></TodoRow>
-        )}
-      />
+      {data.length === 0 ? (
+        <Card style={{ padding: t.spacing.lg, alignItems: "center", gap: 8 }}>
+          <Text
+            style={{
+              fontSize: t.type.h2,
+              color: t.colors.text,
+              fontWeight: "600",
+            }}
+          >
+            Nog geen taken
+          </Text>
+          <Text style={{ color: t.colors.subtle, textAlign: "center" }}>
+            Voeg je eerste taak toe om te beginnen.
+          </Text>
+          <Button
+            title="+ Nieuwe taak"
+            onPress={() => router.push("/todos/new")}
+          />
+        </Card>
+      ) : (
+        <FlashList
+          data={data}
+          keyExtractor={(it) => it.id}
+          ItemSeparatorComponent={() => (
+            <View style={{ height: t.spacing.sm }} />
+          )}
+          renderItem={({ item }) => (
+            <Pressable
+              onPress={() => toggleTodo(item.id)}
+              onLongPress={() =>
+                router.push({
+                  pathname: "/todos/[id]",
+                  params: { id: item.id },
+                })
+              }
+            >
+              <Card style={{ padding: t.spacing.md }}>
+                <Text style={{ fontWeight: "600", color: t.colors.text }}>
+                  {item.completed ? "✅" : "⬜️"} {item.title}
+                </Text>
+                {item.description ? (
+                  <Text style={{ color: t.colors.subtle, marginTop: 4 }}>
+                    {item.description}
+                  </Text>
+                ) : null}
+              </Card>
+            </Pressable>
+          )}
+        />
+      )}
     </View>
   );
 }

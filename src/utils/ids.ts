@@ -1,2 +1,2 @@
-export const id = () =>
-  Math.random().toString(36).slice(2, 8) + "-" + Date.now().toString(36);
+import { v4 as uuidv4 } from "uuid";
+export const id = () => uuidv4();
