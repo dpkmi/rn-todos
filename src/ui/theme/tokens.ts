@@ -1,0 +1,25 @@
+export const palette = {
+  brand: "#4F46E5",
+  brandAlt: "#6366F1",
+  danger: "#EF4444",
+  success: "#10B981",
+  warn: "#F59E0B",
+
+  // light
+  bg: "#F8FAFC",
+  card: "#FFFFFF",
+  text: "#0F172A",
+  subtle: "#64748B",
+  border: "#E5E7EB",
+
+  // dark
+  bgDark: "#0B1220",
+  cardDark: "#0F172A",
+  textDark: "#E5E7EB",
+  subtleDark: "#94A3B8",
+  borderDark: "#1F2937",
+};
+
+export const radius = { xs: 6, sm: 10, md: 14, lg: 20 } as const;
+export const spacing = { xs: 6, sm: 10, md: 14, lg: 18, xl: 24 } as const;
+export const type = { h1: 22, h2: 18, body: 16, small: 13 } as const;

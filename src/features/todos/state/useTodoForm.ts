@@ -1,7 +1,8 @@
 import { create } from "zustand";
 import { useTodos } from "./useTodos";
 import { parseDateToMs } from "@/utils/date";
-import { init } from "i18next";
+import { id as genId } from "@/utils/ids";
+// import { init } from "i18next";
 
 type Fields = {
   title: string;
@@ -77,8 +78,9 @@ export const useTodoForm = create<{
       ? parseDateToMs(fields.dueRaw)
       : undefined;
     if (mode === "create") {
+      const newId = id ?? genId();
       useTodos.getState().addTodo({
-        id: crypto.randomUUID(),
+        id: newId,
         title: fields.title.trim(),
         description: fields.description.trim() || undefined,
         completed: false,
