@@ -5,6 +5,8 @@ import { Input } from "@/ui/Input";
 import { Button } from "@/ui/Button";
 import { Card } from "@/ui/Card";
 import { useTheme } from "@/ui/theme/theme";
+import { DateField } from "@/ui/DateField";
+import { formatInputDateTime } from "@/utils/format";
 
 type Props = {
   fields: {
@@ -62,20 +64,12 @@ export const TodoForm = memo((p: Props) => {
           />
         </Field>
 
-        <Field
-          label="Agenda / Datum (bv. 2025-12-31 09:00)"
-          error={p.errors.dueRaw}
-        >
-          <Input
-            value={p.fields.dueRaw}
-            onChangeText={(v) => p.setField("dueRaw", v)}
-            placeholder="YYYY-MM-DD of YYYY-MM-DD HH:mm"
-            autoCapitalize="none"
-            autoCorrect={false}
-            keyboardType="numbers-and-punctuation"
-          />
-          {p.errors.dueRaw ? null : p.extraBelowDate ?? null}
-        </Field>
+        <DateField
+          valueText={p.fields.dueRaw || "Kies datum"}
+          hasError={!!p.errors.dueRaw}
+          onPick={(date) => p.setField("dueRaw", formatInputDateTime(date))}
+        />
+        {p.errors.dueRaw ? null : p.extraBelowDate ?? null}
 
         <Field label="Locatie">
           <Input

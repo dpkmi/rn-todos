@@ -71,6 +71,16 @@ export const TodoRow = memo(({ item, onToggle, onDelete, onOpen }: Props) => {
         {item.description ? (
           <Text style={{ opacity: 0.8, marginTop: 4 }}>{item.description}</Text>
         ) : null}
+        {item.dueAt ? (
+          <Text style={{ opacity: 0.6, marginTop: 4, fontSize: 12 }}>
+            📅{" "}
+            {new Date(item.dueAt).toLocaleDateString("nl-NL", {
+              day: "numeric",
+              month: "long",
+              year: "numeric",
+            })}
+          </Text>
+        ) : null}
       </Pressable>
     </Swipeable>
   );

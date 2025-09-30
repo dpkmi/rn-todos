@@ -11,6 +11,8 @@ export function useTheme() {
     dark,
     colors: {
       bg: dark ? palette.bgDark : palette.bg,
+      primary: dark ? palette.primaryDark : palette.primary,
+      onPrimary: dark ? palette.onPrimaryDark : palette.onPrimary,
       card: dark ? palette.cardDark : palette.card,
       text: dark ? palette.textDark : palette.text,
       subtle: dark ? palette.subtleDark : palette.subtle,

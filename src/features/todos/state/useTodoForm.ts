@@ -1,6 +1,6 @@
 import { create } from "zustand";
 import { useTodos } from "./useTodos";
-import { parseDateToMs } from "@/utils/date";
+import { formatDate, parseDateToMs } from "@/utils/date";
 import { id as genId } from "@/utils/ids";
 // import { init } from "i18next";
 
@@ -46,9 +46,7 @@ export const useTodoForm = create<{
       fields: {
         title: t.title,
         description: t.description || "",
-        dueRaw: t.dueAt
-          ? new Date(t.dueAt).toISOString().slice(0, 16).replace("T", " ")
-          : "",
+        dueRaw: t.dueAt ? formatDate(t.dueAt) : "",
         location: t.location || "",
       },
     });

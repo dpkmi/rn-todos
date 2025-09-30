@@ -10,7 +10,13 @@ export default function RootLayout() {
   const t = useTheme();
   return (
     <GestureHandlerRootView style={{ flex: 1 }}>
-      <View style={{ flex: 1, backgroundColor: t.colors.bg }}>
+      <View
+        style={{
+          flex: 1,
+          backgroundColor: t.colors.bg,
+          marginTop: t.spacing.xl,
+        }}
+      >
         <Slot />
       </View>
       <StatusBar style={t.dark ? "light" : "dark"} />
