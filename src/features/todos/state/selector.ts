@@ -13,13 +13,13 @@ function applySort(arr: Todo[], sort: TodoSort): Todo[] {
   const a = [...arr];
   switch (sort) {
     case "newest":
-      return a.sort((x, y) => x.createdAt - y.createdAt);
+      return a.sort((a, b) => a.createdAt - b.createdAt);
     case "oldest":
-      return a.sort((x, y) => (x.dueAt ?? Infinity) - (y.dueAt ?? Infinity));
+      return a.sort((a, b) => (a.dueAt ?? Infinity) - (b.dueAt ?? Infinity));
     case "due-soon":
-      return a.sort((x, y) => x.title.localeCompare(y.title));
+      return a.sort((a, b) => a.title.localeCompare(b.title));
     default: // "created-desc"
-      return a.sort((x, y) => y.createdAt - x.createdAt);
+      return a.sort((a, b) => b.createdAt - a.createdAt);
   }
 }
 

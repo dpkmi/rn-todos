@@ -1,5 +1,4 @@
-import { View, Text, FlatList, Pressable } from "react-native";
-// import { useMemo } from "react";
+import { View, Text, Pressable } from "react-native";
 import { useTodos } from "@features/todos/state/useTodos";
 import { useRouter } from "expo-router";
 import { FlashList } from "@shopify/flash-list";
@@ -32,6 +31,10 @@ export default function TodosScreen() {
     return { all: arr.length, active: arr.length - completed, completed };
   })();
 
+  const isAll = currentFilter == "all";
+  const isEmpty = data.length === 0;
+  const hasAnyTodo = Object.keys(items).length > 0;
+
   return (
     <View style={{ flex: 1, padding: t.spacing.lg, gap: t.spacing.md }}>
       <View
@@ -59,7 +62,7 @@ export default function TodosScreen() {
         onChange={setFilter}
       />
 
-      {data.length === 0 ? (
+      {isEmpty && isAll ? (
         <Card style={{ padding: t.spacing.lg, alignItems: "center", gap: 8 }}>
           <Text
             style={{
