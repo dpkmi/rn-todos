@@ -2,7 +2,7 @@ import { create } from "zustand";
 import { useTodos } from "./useTodos";
 import { formatDate, parseDateToMs } from "@/utils/date";
 import { id as genId } from "@/utils/ids";
-import { useTranslation } from "react-i18next";
+import i18n from "@/lib/i18n";
 
 type Fields = {
   title: string;
@@ -61,12 +61,11 @@ export const useTodoForm = create<{
     })),
 
   validate: () => {
-    const { t } = useTranslation();
     const { fields } = get();
     const errors: Errors = {};
-    if (!fields.title.trim()) errors.title = t("form.requiredTitle");
+    if (!fields.title.trim()) errors.title = i18n.t("form.required");
     if (fields.dueRaw.trim() && !parseDateToMs(fields.dueRaw))
-      errors.dueRaw = t("form.invalidDate");
+      errors.dueRaw = i18n.t("form.invalidDate");
     set({ errors });
     return Object.keys(errors).length === 0;
   },

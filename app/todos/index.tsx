@@ -70,13 +70,13 @@ export default function TodosScreen() {
               fontWeight: "600",
             }}
           >
-            {tr("noItemsTitle")}
+            {tr("empty.title")}
           </Text>
           <Text style={{ color: t.colors.subtle, textAlign: "center" }}>
-            {tr("noItemsBody")}
+            {tr("empty.hint")}
           </Text>
           <Button
-            title={tr("newTask")}
+            title={tr("empty.cta")}
             onPress={() => router.push("/todos/new")}
           />
         </Card>
