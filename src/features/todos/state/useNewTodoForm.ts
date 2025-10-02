@@ -2,6 +2,9 @@ import { create } from "zustand";
 import { id as generateId } from "@/utils/ids";
 import { useTodos } from "./useTodos";
 import { parseDateToMs } from "@/utils/date";
+import { useTranslation } from "react-i18next";
+
+const { t } = useTranslation();
 
 type Fields = {
   title: string;
@@ -41,11 +44,11 @@ export const useNewTodoForm = create<FormState>((set, get) => ({
   validate: () => {
     const { fields } = get();
     const errors: Errors = {};
-    if (!fields.title.trim()) errors.title = "Title is verplicht";
+    if (!fields.title.trim()) errors.title = t("form.requiredTitle");
 
     if (fields.dueRaw.trim()) {
       const ms = parseDateToMs(fields.dueRaw);
-      if (!ms) errors.dueRaw = "Ongeldige datum";
+      if (!ms) errors.dueRaw = t("form.invalidDate");
     }
     set({ errors });
     return Object.keys(errors).length === 0;

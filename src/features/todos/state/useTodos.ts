@@ -1,7 +1,7 @@
 import { create } from "zustand";
 import { persist, createJSONStorage } from "zustand/middleware";
 import { mmkvStorage } from "@lib/mmkv/client";
-import { Todo } from "../model/types";
+import { Todo } from "../../../types/types";
 
 type TodoState = {
   items: Record<string, Todo>;

@@ -1,7 +1,7 @@
 import { useMemo } from "react";
 import { useTodos } from "./useTodos";
 import { useTodoView, TodoFilter, TodoSort } from "./useTodoView";
-import type { Todo } from "../model/types";
+import type { Todo } from "../../../types/types";
 
 function applyFilter(arr: Todo[], filter: TodoFilter): Todo[] {
   if (filter === "active") return arr.filter((t) => !t.completed);

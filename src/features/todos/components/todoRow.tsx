@@ -5,7 +5,7 @@ import Swipeable, {
 } from "react-native-gesture-handler/ReanimatedSwipeable";
 import type { SharedValue } from "react-native-reanimated";
 import { Ionicons } from "@expo/vector-icons";
-import type { Todo } from "@features/todos/model/types";
+import type { Todo } from "@/types/types";
 
 type Props = {
   item: Todo;

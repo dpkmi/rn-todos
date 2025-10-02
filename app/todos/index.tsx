@@ -8,23 +8,22 @@ import { Card } from "@/ui/Card";
 import { TodoFilter } from "@features/todos/components/TodoFilter";
 import { useVisibleTodos } from "@/features/todos/state/selector";
 import { useTodoView } from "@/features/todos/state/useTodoView";
+import { LanguageToggle } from "@/lib/i18n/LanguageToggle";
+import { useTranslation } from "react-i18next";
 
 export default function TodosScreen() {
   const router = useRouter();
   const t = useTheme();
+  const { t: tr } = useTranslation();
 
-  // domain acties
   const toggleTodo = useTodos((s) => s.toggleTodo);
   const items = useTodos((s) => s.items);
 
-  // view state
   const currentFilter = useTodoView((s) => s.filter);
   const setFilter = useTodoView((s) => s.setFilter);
 
-  // lijst die al filter/sort toepast
   const data = useVisibleTodos();
 
-  // counts in parent berekenen (geen setState)
   const counts = (() => {
     const arr = Object.values(items);
     const completed = arr.filter((x) => x.completed).length;
@@ -33,7 +32,6 @@ export default function TodosScreen() {
 
   const isAll = currentFilter == "all";
   const isEmpty = data.length === 0;
-  const hasAnyTodo = Object.keys(items).length > 0;
 
   return (
     <View style={{ flex: 1, padding: t.spacing.lg, gap: t.spacing.md }}>
@@ -51,9 +49,10 @@ export default function TodosScreen() {
             color: t.colors.text,
           }}
         >
-          📝 Todos
+          {tr("appTitle")}
         </Text>
-        <Button title="+ Nieuw" onPress={() => router.push("/todos/new")} />
+        <LanguageToggle />
+        <Button title={tr("new")} onPress={() => router.push("/todos/new")} />
       </View>
 
       <TodoFilter
@@ -71,13 +70,13 @@ export default function TodosScreen() {
               fontWeight: "600",
             }}
           >
-            Nog geen taken
+            {tr("noItemsTitle")}
           </Text>
           <Text style={{ color: t.colors.subtle, textAlign: "center" }}>
-            Voeg je eerste taak toe om te beginnen.
+            {tr("noItemsBody")}
           </Text>
           <Button
-            title="+ Nieuwe taak"
+            title={tr("newTask")}
             onPress={() => router.push("/todos/new")}
           />
         </Card>

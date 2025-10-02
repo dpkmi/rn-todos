@@ -1,6 +1,7 @@
 import { View, Pressable, Text } from "react-native";
 import { memo } from "react";
 import { useTheme } from "@/ui/theme/theme";
+import { useTranslation } from "react-i18next";
 
 type Counts = { all: number; active: number; completed: number };
 type Props = {
@@ -11,6 +12,7 @@ type Props = {
 
 export const TodoFilter = memo(({ current, counts, onChange }: Props) => {
   const t = useTheme();
+  const { t: tr } = useTranslation();
 
   const Pill = ({
     value,
@@ -74,9 +76,13 @@ export const TodoFilter = memo(({ current, counts, onChange }: Props) => {
 
   return (
     <View style={{ flexDirection: "row", gap: 8, alignItems: "center" }}>
-      <Pill value="all" label="Alle" count={counts.all} />
-      <Pill value="active" label="Actief" count={counts.active} />
-      <Pill value="completed" label="Voltooid" count={counts.completed} />
+      <Pill value="all" label={tr("filters.all")} count={counts.all} />
+      <Pill value="active" label={tr("filters.active")} count={counts.active} />
+      <Pill
+        value="completed"
+        label={tr("filters.completed")}
+        count={counts.completed}
+      />
     </View>
   );
 });

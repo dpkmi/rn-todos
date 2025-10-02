@@ -3,9 +3,11 @@ import { ScrollView, Alert } from "react-native";
 import { useRouter } from "expo-router";
 import { useTodoForm } from "@features/todos/state/useTodoForm";
 import { TodoForm } from "@features/todos/components/todoForm";
+import { useTranslation } from "react-i18next";
 
 export default function NewTodo() {
   const router = useRouter();
+  const { t } = useTranslation();
   const { initCreate, fields, errors, setField, submit, reset } = useTodoForm();
 
   useEffect(() => {
@@ -18,7 +20,7 @@ export default function NewTodo() {
     if (ok) router.back();
     else
       Alert.alert(
-        "Formulier onvolledig",
+        t("form.incomplete"),
         Object.values(errors).filter(Boolean).join("\n")
       );
   };
