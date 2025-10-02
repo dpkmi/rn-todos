@@ -45,6 +45,12 @@ export const palette = {
   // Focus outline (a11y)
   focusRing: "#93C5FD",
   focusRingDark: "#2563EB",
+
+  successBg: "#E8FAF3",
+  successText: "#065F46",
+  dangerBg: "#FEE2E2",
+  dangerText: "#7F1D1D",
+  brandAltBg: "#EEF2FF",
 };
 
 export const radius = { xs: 6, sm: 10, md: 14, lg: 20 } as const;

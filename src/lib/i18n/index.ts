@@ -14,10 +14,17 @@ const resources = {
         active: "Actief",
         completed: "Voltooid",
       },
+      ok: "OK",
+      cancel: "Annuleren",
+      delete: "Verwijderen",
       empty: {
         title: "Nog geen taken",
         hint: "Voeg je eerste taak toe om te beginnen.",
         cta: "Nieuwe taak",
+      },
+      confirmDelete: {
+        title: "Verwijderen?",
+        message: "Weet je zeker dat je deze taak wilt verwijderen?",
       },
       form: {
         title: "Titel",
@@ -41,6 +48,9 @@ const resources = {
       appTitle: "Todos",
       addTodo: "Add task",
       new: "New",
+      ok: "OK",
+      cancel: "Cancel",
+      delete: "Delete",
       filters: {
         all: "All",
         active: "Active",
@@ -50,6 +60,10 @@ const resources = {
         title: "No tasks yet",
         hint: "Add your first task to get started.",
         cta: "New task",
+      },
+      confirmDelete: {
+        title: "Delete?",
+        message: "Are you sure you want to delete this task?",
       },
       form: {
         title: "Title",

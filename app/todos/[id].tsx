@@ -36,8 +36,19 @@ export default function EditTodo() {
   };
 
   const onDelete = () => {
-    const ok = remove();
-    if (ok) router.back();
+    Alert.alert(t("confirmDelete.title"), t("confirmDelete.message"), [
+      { text: t("cancel"), style: "cancel" },
+      {
+        text: t("delete"),
+        style: "destructive",
+        onPress: () => {
+          const ok = remove();
+          if (ok) router.back();
+        },
+      },
+    ]);
+    // const ok = remove();
+    // if (ok) router.back();
   };
 
   return (

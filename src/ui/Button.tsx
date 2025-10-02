@@ -21,7 +21,7 @@ export function Button({
     paddingVertical: 12,
     paddingHorizontal: 14,
     borderRadius: t.radius.md,
-    borderWidth: 0,
+    borderWidth: 1,
     alignItems: "center",
     justifyContent: "center",
     flexDirection: "row" as const,
@@ -40,6 +40,7 @@ export function Button({
     },
     ghost: {
       ...base,
+      borderWidth: 0,
       paddingVertical: 8,
       paddingHorizontal: 8,
       borderRadius: t.radius.sm,
