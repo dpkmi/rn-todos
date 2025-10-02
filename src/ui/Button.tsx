@@ -21,9 +21,10 @@ export function Button({
     paddingVertical: 12,
     paddingHorizontal: 14,
     borderRadius: t.radius.md,
-    borderWidth: 1,
+    borderWidth: 0,
     alignItems: "center",
     justifyContent: "center",
+    flexDirection: "row" as const,
   } as const;
 
   const styles = {
@@ -38,6 +39,7 @@ export function Button({
       borderColor: t.colors.border,
     },
     ghost: {
+      ...base,
       paddingVertical: 8,
       paddingHorizontal: 8,
       borderRadius: t.radius.sm,
