@@ -5,6 +5,9 @@ import { Input } from "@/ui/Input";
 import { Button } from "@/ui/Button";
 import { Card } from "@/ui/Card";
 import { useTheme } from "@/ui/theme/theme";
+import { DateField } from "@/ui/DateField";
+import { formatInputDateTime } from "@/utils/format";
+import { useTranslation } from "react-i18next";
 
 type Props = {
   fields: {
@@ -27,6 +30,7 @@ type Props = {
 
 export const TodoForm = memo((p: Props) => {
   const t = useTheme();
+  const { t: tr } = useTranslation();
 
   return (
     <View
@@ -40,19 +44,19 @@ export const TodoForm = memo((p: Props) => {
       <Text
         style={{ fontSize: t.type.h1, fontWeight: "600", color: t.colors.text }}
       >
-        Todo
+        {tr("addTodo")}
       </Text>
 
       <Card style={{ padding: t.spacing.lg, gap: t.spacing.md }}>
-        <Field label="Title *" error={p.errors.title}>
+        <Field label={tr("form.title")} error={p.errors.title}>
           <Input
             value={p.fields.title}
             onChangeText={(v) => p.setField("title", v)}
-            placeholder="Vul een titel in"
+            placeholder={tr("form.titlePlaceholder")}
           />
         </Field>
 
-        <Field label="Beschrijving">
+        <Field label={tr("form.description")}>
           <Input
             value={p.fields.description}
             onChangeText={(v) => p.setField("description", v)}
@@ -62,26 +66,18 @@ export const TodoForm = memo((p: Props) => {
           />
         </Field>
 
-        <Field
-          label="Agenda / Datum (bv. 2025-12-31 09:00)"
-          error={p.errors.dueRaw}
-        >
-          <Input
-            value={p.fields.dueRaw}
-            onChangeText={(v) => p.setField("dueRaw", v)}
-            placeholder="YYYY-MM-DD of YYYY-MM-DD HH:mm"
-            autoCapitalize="none"
-            autoCorrect={false}
-            keyboardType="numbers-and-punctuation"
-          />
-          {p.errors.dueRaw ? null : p.extraBelowDate ?? null}
-        </Field>
+        <DateField
+          valueText={p.fields.dueRaw || tr("form.datePlaceholder")}
+          hasError={!!p.errors.dueRaw}
+          onPick={(date) => p.setField("dueRaw", formatInputDateTime(date))}
+        />
+        {p.errors.dueRaw ? null : p.extraBelowDate ?? null}
 
-        <Field label="Locatie">
+        <Field label={tr("form.location")}>
           <Input
             value={p.fields.location}
             onChangeText={(v) => p.setField("location", v)}
-            placeholder="Adres of plek…"
+            placeholder={tr("form.locationPlaceholder")}
           />
         </Field>
 
@@ -92,11 +88,19 @@ export const TodoForm = memo((p: Props) => {
             marginTop: t.spacing.sm,
           }}
         >
-          <Button title="Opslaan" onPress={p.onSubmit} style={{ flex: 1 }} />
-          <Button title="Annuleer" variant="outline" onPress={p.onCancel} />
+          <Button
+            title={tr("form.save")}
+            onPress={p.onSubmit}
+            style={{ flex: 1 }}
+          />
+          <Button
+            title={tr("form.cancel")}
+            variant="outline"
+            onPress={p.onCancel}
+          />
           {p.showDelete ? (
             <Button
-              title="Verwijder"
+              title={tr("form.delete")}
               variant="outline"
               onPress={p.onDelete ?? (() => {})}
               style={{ borderColor: t.colors.danger }}

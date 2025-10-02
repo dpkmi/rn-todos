@@ -1,3 +1,4 @@
+import { Button } from "@/ui/Button";
 import { router } from "expo-router";
 import { View, Text, Pressable } from "react-native";
 
@@ -14,12 +15,7 @@ export default function Home() {
       <Text style={{ fontSize: 22, fontWeight: "600" }}>
         Een overdreven Todo app
       </Text>
-      <Pressable
-        onPress={() => router.push("/todos")}
-        style={{ padding: 12, borderWidth: 1, borderRadius: 8 }}
-      >
-        <Text>Ga naar Todos</Text>
-      </Pressable>
+      <Button title="Ga naar overzicht" onPress={() => router.push("/todos")} />
     </View>
   );
 }

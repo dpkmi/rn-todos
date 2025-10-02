@@ -5,7 +5,7 @@ import Swipeable, {
 } from "react-native-gesture-handler/ReanimatedSwipeable";
 import type { SharedValue } from "react-native-reanimated";
 import { Ionicons } from "@expo/vector-icons";
-import type { Todo } from "@features/todos/model/types";
+import type { Todo } from "@/types/types";
 
 type Props = {
   item: Todo;
@@ -70,6 +70,16 @@ export const TodoRow = memo(({ item, onToggle, onDelete, onOpen }: Props) => {
         </Text>
         {item.description ? (
           <Text style={{ opacity: 0.8, marginTop: 4 }}>{item.description}</Text>
+        ) : null}
+        {item.dueAt ? (
+          <Text style={{ opacity: 0.6, marginTop: 4, fontSize: 12 }}>
+            📅{" "}
+            {new Date(item.dueAt).toLocaleDateString("nl-NL", {
+              day: "numeric",
+              month: "long",
+              year: "numeric",
+            })}
+          </Text>
         ) : null}
       </Pressable>
     </Swipeable>

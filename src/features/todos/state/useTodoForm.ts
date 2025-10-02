@@ -1,8 +1,8 @@
 import { create } from "zustand";
 import { useTodos } from "./useTodos";
-import { parseDateToMs } from "@/utils/date";
+import { formatDate, parseDateToMs } from "@/utils/date";
 import { id as genId } from "@/utils/ids";
-// import { init } from "i18next";
+import { useTranslation } from "react-i18next";
 
 type Fields = {
   title: string;
@@ -10,6 +10,7 @@ type Fields = {
   dueRaw: string;
   location: string;
 };
+
 type Errors = Partial<Record<keyof Fields, string>>;
 type Mode = "create" | "edit";
 
@@ -46,9 +47,7 @@ export const useTodoForm = create<{
       fields: {
         title: t.title,
         description: t.description || "",
-        dueRaw: t.dueAt
-          ? new Date(t.dueAt).toISOString().slice(0, 16).replace("T", " ")
-          : "",
+        dueRaw: t.dueAt ? formatDate(t.dueAt) : "",
         location: t.location || "",
       },
     });
@@ -62,11 +61,12 @@ export const useTodoForm = create<{
     })),
 
   validate: () => {
+    const { t } = useTranslation();
     const { fields } = get();
     const errors: Errors = {};
-    if (!fields.title.trim()) errors.title = "Title is verplicht";
+    if (!fields.title.trim()) errors.title = t("form.requiredTitle");
     if (fields.dueRaw.trim() && !parseDateToMs(fields.dueRaw))
-      errors.dueRaw = "Ongeldige datum";
+      errors.dueRaw = t("form.invalidDate");
     set({ errors });
     return Object.keys(errors).length === 0;
   },

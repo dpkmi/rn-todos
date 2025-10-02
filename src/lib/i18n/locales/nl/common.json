@@ -1,0 +1,27 @@
+{
+  "appTitle": "📝 Todos",
+  "noItemsTitle": "Nog geen taken",
+  "noItemsBody": "Voeg je eerste taak toe om te beginnen.",
+  "new": "+ Nieuw",
+  "newTask": "+ Nieuwe taak",
+  "current": "Huidig",
+  "form": {
+    "title": "Titel *",
+    "description": "Beschrijving",
+    "date": "Agenda / Datum (bv. 2025-12-31)",
+    "location": "Locatie",
+    "save": "Opslaan",
+    "cancel": "Annuleer",
+    "delete": "Verwijder",
+    "invalidDate": "Ongeldige datum",
+    "requiredTitle": "Titel is verplicht",
+    "formIncomplete": "Formulier onvolledig",
+    "notFound": "Niet gevonden",
+    "notFoundBody": "Dit item bestaat niet meer."
+  },
+  "filters": {
+    "all": "Alle",
+    "active": "Actief",
+    "completed": "Voltooid"
+  }
+}
