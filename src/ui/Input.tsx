@@ -3,6 +3,7 @@ import { useTheme } from "@/ui/theme/theme";
 
 export function Input({ style, ...p }: TextInputProps) {
   const t = useTheme();
+
   return (
     <TextInput
       {...p}

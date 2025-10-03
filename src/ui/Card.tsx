@@ -3,6 +3,7 @@ import { useTheme } from "@/ui/theme/theme";
 
 export function Card({ style, ...p }: ViewProps) {
   const t = useTheme();
+
   return (
     <View
       {...p}

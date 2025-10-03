@@ -47,9 +47,9 @@ or
 
 <h3>Run on simulator</h3>
 <pre>
-  <code>npx run android</code>
+  <code>npx expo run:android</code>
   or
-  <code>npx run ios</code>
+  <code>npx expo run:ios</code>
 </pre>
 
 <h2>Internationalization (i18n)</h2>
@@ -77,7 +77,6 @@ const { t } = useTranslation("common");
   <li><strong>Button</strong> variants: <code>primary</code>, <code>outline</code>, <code>ghost</code>. All variants share a common base (same height, padding, borderWidth) to avoid layout jumps when toggling variant (e.g., language buttons).</li>
 </ul>
 
-
 <p><strong>Example (inside <code>Button.tsx</code>)</strong>:</p>
 <pre><code>const HEIGHT = 40;
 const base = {
@@ -90,10 +89,9 @@ const base = {
   flexDirection: "row" as const
 };
 
-
 const styles = {
-  primary: { ...base, backgroundColor: t.colors.brand,  borderColor: t.colors.brand },
-  outline: { ...base, backgroundColor: "transparent",   borderColor: t.colors.border },
-  ghost:   { ...base, backgroundColor: "transparent",   borderColor: "transparent" }
+primary: { ...base, backgroundColor: t.colors.brand, borderColor: t.colors.brand },
+outline: { ...base, backgroundColor: "transparent", borderColor: t.colors.border },
+ghost: { ...base, backgroundColor: "transparent", borderColor: "transparent" }
 } as const;
 </code></pre>

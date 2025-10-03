@@ -40,7 +40,7 @@ export function Button({
     },
     ghost: {
       ...base,
-      borderWidth: 0,
+      borderColor: "transparent",
       paddingVertical: 8,
       paddingHorizontal: 8,
       borderRadius: t.radius.sm,
